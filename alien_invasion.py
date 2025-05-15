@@ -2,7 +2,8 @@ import sys
 ## to exit the game when the player quits
 import pygame
 ## Pygame module contains the functionality we need to make a game.
-
+from settings import Settings
+## Importing the Settings class from settings.py to use the settings defined there.
 
 
 
@@ -11,13 +12,12 @@ class AlienInvasion:
     def __init__(self):
         """ Initialize the game and create game resources. """
         pygame.init()
+        self.settings = Settings() # Create an instance of the Settings class
 
-        self.screen = pygame.display.set_mode( (1200, 800) ) # this method creates a display window of given size
+        self.screen = pygame.display.set_mode( (self.settings.screen_width, self.settings.screen_height) ) # this method creates a display window of given size
         # and returns a surface object representing the screen: drawable area
         pygame.display.set_caption("Alien Invasion")
 
-        # Set the background color.
-        self.bg_color = (230, 230, 230) # pygame uses RGB color model
 
     def run_game(self):
         """ Start the main loop for the game. """
@@ -28,7 +28,7 @@ class AlienInvasion:
                     sys.exit()
             
             # Redraw the screen during each pass through the loop.
-            self.screen.fill(self.bg_color) # since every new frame overwrites the old one.
+            self.screen.fill(self.settings.bg_color) # since every new frame overwrites the old one.
             # Make the most recently drawn screen visible (Doesn't remember previous frames).
             pygame.display.flip()
             
