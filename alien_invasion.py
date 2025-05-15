@@ -4,6 +4,7 @@ import pygame
 ## Pygame module contains the functionality we need to make a game.
 from settings import Settings
 ## Importing the Settings class from settings.py to use the settings defined there.
+from ship import Ship
 
 
 
@@ -17,6 +18,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode( (self.settings.screen_width, self.settings.screen_height) ) # this method creates a display window of given size
         # and returns a surface object representing the screen: drawable area
         pygame.display.set_caption("Alien Invasion")
+        self.ship = Ship(self)
 
 
     def run_game(self):
@@ -29,6 +31,7 @@ class AlienInvasion:
             
             # Redraw the screen during each pass through the loop.
             self.screen.fill(self.settings.bg_color) # since every new frame overwrites the old one.
+            self.ship.blitme()  # Draw the ship in the current surface.
             # Make the most recently drawn screen visible (Doesn't remember previous frames).
             pygame.display.flip()
             
