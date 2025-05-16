@@ -15,8 +15,13 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings() # Create an instance of the Settings class
 
-        self.screen = pygame.display.set_mode( (self.settings.screen_width, self.settings.screen_height) ) # this method creates a display window of given size
+        # Note: The screen size is set to 0, 0 to make it fullscreen.
+        # pygame.FULLSCREEN tells pygame to figure the window size that will fill the screen.
+        self.screen = pygame.display.set_mode( (0, 0), pygame.FULLSCREEN ) # this method creates a display window of given size
         # and returns a surface object representing the screen: drawable area
+        self.settings.screen_width = self.screen.get_rect().width # get the width of the screen
+        self.settings.screen_height = self.screen.get_rect().height # get the height of the screen
+
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
 
@@ -41,7 +46,8 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-
+    """ Very important Note: make sure to keep exit using 'q' key, don't remove that part. Pygame do not 
+    provide a default way to exit the game in fullscreen mode."""
     def _check_keydown_events(self, event):
         """ Respond to keypresses."""
         if event.key == pygame.K_RIGHT:
