@@ -37,11 +37,7 @@ class AlienInvasion:
             # allow the continuous movement of the ship
             self.ship.update()
             # Update the position of the bullets
-            self.bullets.update() # when update on a group is called, it calls update on each sprite in the group
-            # Get rid of the bullets that have disappeared.
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            self._update_bullets()
             # Redraw the screen during each pass through the code
             self._update_screen()
     
@@ -81,6 +77,15 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+
+    def _update_bullets(self):
+        """ Update the positions of bullets and get rid of old bullets """
+        self.bullets.update() # when update on a group is called, it calls update on each sprite in the group
+        # Get rid of the bullets that have disappeared.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        
 
     def _update_screen(self):
         """ Update images on the screen, and flip to the new screen."""
