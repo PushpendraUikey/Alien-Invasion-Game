@@ -24,6 +24,7 @@ class AlienInvasion:
 
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group() # create a group to hold the bullets
 
 
     def run_game(self):
@@ -31,8 +32,10 @@ class AlienInvasion:
         while True:
             # Watch for keyboard and mouse events.
             self._check_events()
-            # allow th continuous movement of the ship
+            # allow the continuous movement of the ship
             self.ship.update()
+            # Update the position of the bullets
+            self.bullets.update() # when update on a group is called, it calls update on each sprite in the group
             # Redraw the screen during each pass through the code
             self._update_screen()
     
