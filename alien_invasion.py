@@ -38,6 +38,10 @@ class AlienInvasion:
             self.ship.update()
             # Update the position of the bullets
             self.bullets.update() # when update on a group is called, it calls update on each sprite in the group
+            # Get rid of the bullets that have disappeared.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
             # Redraw the screen during each pass through the code
             self._update_screen()
     
