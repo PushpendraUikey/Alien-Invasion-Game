@@ -5,7 +5,9 @@ import pygame
 from settings import Settings
 ## Importing the Settings class from settings.py to use the settings defined there.
 from ship import Ship
-
+## Importing the Ship class to create a ship object.
+from bullet import Bullet
+## Importing the Bullet class to create bullet objects.
 
 
 class AlienInvasion:
@@ -57,9 +59,15 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
-        elif event.key == pygame.K_q: # quit the game when 'q' is pressed
+        elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE: # quit the game when 'q' or 'esc' is pressed
             sys.exit()
+        elif event.key == pygame.K_SPACE: # fire a bullet when space is pressed
+            self._fire_bullet()
 
+    def _fire_bullet(self):
+        """ Create a new bullet and add it to the bullets group. """
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _check_keyup_events(self, event):
         """ Respond to key releases."""
@@ -75,6 +83,8 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color) # since every new frame overwrites the old one.
         self.ship.blitme()  # Draw the ship in the current surface.
         # Make the most recently drawn screen visible (Doesn't remember previous frames).
+        for bullet in self.bullets.sprites(): # .sprites() returns a list of all the bullets in the group
+            bullet.draw_bullet()
         pygame.display.flip()
 
 if __name__ == '__main__':
