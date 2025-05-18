@@ -8,6 +8,8 @@ from ship import Ship
 ## Importing the Ship class to create a ship object.
 from bullet import Bullet
 ## Importing the Bullet class to create bullet objects.
+from alien import Alien
+## Importing the Alien class to create alien objects.
 
 
 class AlienInvasion:
@@ -27,7 +29,9 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group() # create a group to hold the bullets
+        self.aliens = pygame.sprite.Group() # create a group to hold the aliens
 
+        self._create_fleet() # create a fleet of aliens
 
     def run_game(self):
         """ Start the main loop for the game. """
@@ -85,6 +89,12 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _create_fleet(self):
+        """ Create a fleet of aliens. """
+        # Make an alien
+        alien = Alien(self)
+        self.aliens.add(alien)
         
 
     def _update_screen(self):
@@ -95,6 +105,7 @@ class AlienInvasion:
         # Make the most recently drawn screen visible (Doesn't remember previous frames).
         for bullet in self.bullets.sprites(): # .sprites() returns a list of all the bullets in the group
             bullet.draw_bullet()
+        self.aliens.draw(self.screen) # draw aliens to the screen
         pygame.display.flip()
 
 if __name__ == '__main__':
