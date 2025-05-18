@@ -8,6 +8,8 @@
 
 - Initializes a window with a ship displayed at the bottom center.
 - Ship can move left and right using arrow keys.
+- Ship can fire bullets upward using the spacebar.
+- Bullets move up the screen and are removed when off-screen.
 - The game screen updates smoothly in a loop.
 - Modular code split across files for clarity and scalability.
 
@@ -19,8 +21,9 @@
 alien_invasion/
 │
 ├── alien_invasion.py   # Main game loop and overall game logic
-├── settings.py         # Game settings (screen size, ship speed, etc.)
+├── settings.py         # Game settings (screen size, speeds, colors)
 ├── ship.py             # Ship class: handles image loading, movement, drawing
+├── bullet.py           # Bullet class: manages firing, movement, rendering
 └── images/
     └── ship.bmp        # Ship sprite image
 ```
@@ -31,21 +34,28 @@ alien_invasion/
 
 ### `alien_invasion.py`
 - Contains the `AlienInvasion` class:
-  - Initializes screen, settings, and the ship.
+  - Initializes screen, settings, ship, and bullet group.
   - Handles the game loop using:
-    - `_check_events()` – captures key events.
+    - `_check_events()` – captures key events (movement, firing).
     - `ship.update()` – updates ship position.
+    - `bullets.update()` – updates bullet positions and removes off-screen bullets.
     - `_update_screen()` – redraws screen each frame.
 
 ### `settings.py`
 - Defines the `Settings` class:
-  - Stores game configuration like screen dimensions and ship speed.
+  - Stores game configuration like screen dimensions, speeds, and bullet settings.
 
 ### `ship.py`
 - Defines the `Ship` class:
   - Loads and scales the ship image.
   - Manages ship movement via `update()`.
   - Draws the ship using `blitme()`.
+
+### `bullet.py`
+- Defines the `Bullet` class:
+  - Creates bullet rect and sets its initial position.
+  - Moves bullets upward using `update()`.
+  - Renders bullets using `draw_bullet()`.
 
 ---
 
@@ -64,7 +74,6 @@ alien_invasion/
 
 ## 📌 To-Do (Next Steps)
 
-- Add bullet firing functionality.
 - Introduce alien fleet and collision detection.
 - Scorekeeping and game levels.
 
